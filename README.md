@@ -21,20 +21,22 @@ samtools sort -o output.sorted.bam output.bam
 
 samtools index output.sorted.bam
 
+# Step 5: Removing duplicates
+
 java -jar picard.jar MarkDuplicates I=output.sorted.bam O=output.sorted.dedup.bam METRICS_FILE=metrics.txt VALIDATION_STRINGENCY=LENIENT
 
 samtools index output.sorted.dedup.bam
 
-# Step 5: Variant Calling
+# Step 6: Variant Calling
 gatk HaplotypeCaller -R reference.fa -I output.sorted.dedup.bam -O output.vcf.gz -ERC GVCF
 
-# Step 6: Variant Filtering
+# Step 7: Variant Filtering
 gatk SelectVariants -R reference.fa -V output.vcf.gz -O output.filtered.vcf.gz --select-type-to-include SNP
 vcftools --gzvcf output.filtered.vcf.gz --min-alleles 2 --max-alleles 2 --maf 0.05 --recode --out output.filtered
 bgzip output.filtered.recode.vcf
 tabix -p vcf output.filtered.recode.vcf.gz
 
-# Step 7: Annotation
+# Step 8: Annotation
 annotate_variation.pl -buildver hg38 -downdb -webfrom annovar refGene humandb/
 
 annotate_variation.pl -buildver hg38 -downdb cytoBand humandb/
@@ -46,5 +48,3 @@ annotate_variation.pl -buildver hg38 -downdb -webfrom annovar avsnp147 humandb/
 annotate_variation.pl -buildver hg38 -downdb -webfrom annovar dbnsfp30a humandb/
 
 table_annovar.pl sample.avinput humandb/ -buildver hg38 -out myanno_sample -remove -protocol refGene,cytoBand,exac03,avsnp147,dbnsfp30a -operation gx,r,f,f,f -nastring . -csvout -polish  -vcfinput
-
-
