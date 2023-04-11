@@ -1,6 +1,8 @@
 # DNA-Seq-Analysis
 DNA sequencing analysis
-saved as ./steps_shell_wes.sh
+
+#### The shell script for samplesheet.csv is present in shell_wes.sh
+# saved as ./steps_shell_wes.sh
 
 #------------WES/WGS—---------#
 # Step 1: Quality Control
