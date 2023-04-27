@@ -5,6 +5,19 @@ DNA sequencing analysis
 # saved as ./steps_shell_wes.sh
 
 #------------WES/WGS—---------#
+
+# Step 0: Getting data from Public
+Get the data from public repository (SRA)
+#Install SRA tool kit
+
+#https://github.com/ncbi/sra-tools/wiki/01.-Downloading-SRA-Toolkit
+
+#Select Ubuntu Linux 64 bit architecture/ mac OSX
+
+#Install sra-toolkit
+
+/home/ankits/sratoolkit/bin/fastq-dump --split-files --gzip SRR9876543
+
 # Step 1: Quality Control
 fastqc -o fastqc_output/ input.fastq.gz
 
