@@ -30,7 +30,12 @@ java -jar picard.jar MarkDuplicates I=output.sorted.bam O=output.sorted.dedup.ba
 samtools index output.sorted.dedup.bam
 
 # Step 6: Variant Calling
+#Germline
 gatk HaplotypeCaller -R reference.fa -I output.sorted.dedup.bam -O output.vcf.gz -ERC GVCF
+
+#Somatic
+gatk Mutect2 -R reference.fasta -I tumor.bam -tumor tumor_sample_name -I normal.bam -normal normal_sample_name --germline-resource af-only-gnomad.vcf.gz --panel-of-normals pon.vcf.gz -O output.vcf.gz
+
 
 # Step 7: Variant Filtering
 gatk SelectVariants -R reference.fa -V output.vcf.gz -O output.filtered.vcf.gz --select-type-to-include SNP
