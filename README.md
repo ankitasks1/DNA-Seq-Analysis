@@ -20,9 +20,10 @@ Get the data from public repository (SRA)
 
 # Step 1: Quality Control
 fastqc -o fastqc_output/ input_1.fastq.gz
+
 fastqc -o fastqc_output/ input_2.fastq.gz
 
-fastqc *.fastq.gz
+<code>fastqc *.fastq.gz</code>
 
 # Step 2: Trimming
 java -jar trimmomatic.jar PE -phred33 input_1.fastq.gz input_2.fastq.gz output_1_paired.fastq.gz output_1_unpaired.fastq.gz output_2_paired.fastq.gz output_2_unpaired.fastq.gz ILLUMINACLIP:adapters.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
