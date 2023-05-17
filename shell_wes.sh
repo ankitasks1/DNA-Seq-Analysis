@@ -18,8 +18,8 @@ do
   fi
   #make the required directory
   mkdir $sampleid
-  cp $sampleid*.fastq.gz "$sampleid"_1.fastq.gz
-  cp $sampleid*.fastq.gz "$sampleid"_2.fastq.gz
+  cp "$sampleid"_1.fastq.gz "$sampleid/${sampleid}_1.fastq.gz"
+  cp "$sampleid"_2.fastq.gz "$sampleid/${sampleid}_2.fastq.gz"
   cd $sampleid/
   
   # Print the name of sample undergoing analysis 
